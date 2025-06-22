@@ -33,11 +33,13 @@
 {:else}
 <ul class="space-y-4">
     {#each data?.jobs ?? [] as job}
+    <a href="/job/{job.id}" class="block">
       <li class="border p-4 rounded shadow">
         <h2 class="text-xl font-semibold">{job.title}</h2>
         <p>{job.description}</p>
         <p class="text-sm text-gray-500">Location: {job.location}</p>
       </li>
+    </a>
     {/each}
   </ul>
 {/if}
