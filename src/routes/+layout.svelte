@@ -24,7 +24,7 @@
       </main>
 
       <footer class="bg-gray-100 p-4 text-center">
-        © {new Date().getFullYear()} JobPortal. All rights reserved.
+        © {new Date().getFullYear()} JobHunt. All rights reserved.
       </footer>
     </div>
   </div>
