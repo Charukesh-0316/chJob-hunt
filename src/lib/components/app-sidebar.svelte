@@ -1,8 +1,10 @@
 <script lang="ts">
  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
- import { HouseIcon, BriefcaseIcon, BookmarkIcon, UserIcon, LogOutIcon, SunIcon, MoonIcon } from "lucide-svelte";
+ import { HouseIcon, BriefcaseIcon, BookmarkIcon, UserIcon, LogOutIcon, SunIcon, MoonIcon, BriefcaseBusinessIcon } from "lucide-svelte";
 	import { Button } from "./ui/button";
    import { toggleMode } from "mode-watcher";
+	import supabase from "$lib/supabaseClient";
+	import { toast } from "svelte-sonner";
 
  // Menu items.
  const items = [
@@ -27,11 +29,30 @@
    icon: UserIcon,
   },
   {
-    title: "logout",
-    url: "/logout",
+    title: "Post a Job",
+    url: "/post-job",
+    icon: BriefcaseBusinessIcon,
+  },
+  {
+    title: "Login",
+    url: "/log-in",
     icon: LogOutIcon,
+  },
+  {
+    title: "Sign Up",
+    url: "/signup",
+    icon: UserIcon,
   }
  ];
+  // Function to handle logout.
+  function handleLogout() {
+    supabase.auth.signOut().then(() => {
+      toast.success("Logged out successfully!");
+      window.location.href = "/log-in";
+    }).catch((error) => {
+      toast.error("Logout failed: " + error.message);
+    });
+  }
 </script>
  
 <Sidebar.Root>
@@ -67,6 +88,12 @@
             </Button>
           {/snippet}
         </Sidebar.MenuButton>
+          <Sidebar.MenuItem>
+            <Button variant="ghost" class="w-full justify-start gap-2" onclick={handleLogout}>
+              <LogOutIcon class="mr-2" />
+              Logout
+            </Button>
+          </Sidebar.MenuItem>
       </Sidebar.MenuItem>
     </Sidebar.Menu>
   </Sidebar.Content>
